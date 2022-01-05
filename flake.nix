@@ -4,7 +4,13 @@
   inputs.flake-utils.url = "github:numtide/flake-utils";
 
   outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system:
+    {
+      templates.document = {
+        path = ./.;
+        description = "LaTeX document with minted support";
+      };
+      defaultTemplate = self.templates.document;
+    } // flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
 
