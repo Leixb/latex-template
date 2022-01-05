@@ -1,10 +1,10 @@
-%! TEX root = **/010-main.tex
+%! TEX root = **/000-main.tex
 % vim: spell spelllang=en:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % PREAMBLE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\input{000-preamble}
+\input{001-preamble}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % EXTRA PACKAGES / CONFIG
@@ -13,8 +13,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % METADATA
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% remove when using \maketitle:
+\renewcommand\and{\\[\baselineskip]}
+
 \title{My title \\ \Large \normalfont My Subtitle}
-\author{First Author \\ Second Author}
+\author{First Author \and Second Author}
 \date{\today}
 
 \begin{document}
@@ -25,7 +29,7 @@
     % Default title or use titlepage.tex
 
     %\maketitle
-    \include{020-titlepage}
+    \include{005-titlepage}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % TOC & lists
@@ -49,7 +53,7 @@
     \setlength{\parskip}{1em plus 0.5em minus 0.2em}
     %\setlength{\parindent}{0pt}
 
-    \include{030-mysection}
+    \include{010-introduction}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % BIBLIO
