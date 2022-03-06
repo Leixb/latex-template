@@ -12,7 +12,7 @@
       defaultTemplate = self.templates.document;
     } // flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = import nixpkgs { inherit system; };
 
         latex-packages = with pkgs; [
           (texlive.combine {
@@ -53,36 +53,24 @@
           wmctrl
         ];
       in
-      {
+      rec {
         devShell = pkgs.mkShell {
           buildInputs = [ latex-packages dev-packages ];
         };
+
+        lib.latexmk = import ./build-document.nix;
         
         packages = flake-utils.lib.flattenTree {
-          document = with import nixpkgs { inherit system; }; stdenvNoCC.mkDerivation rec {
-            name = "document.pdf";
-            src = ./.;
-
-            buildInputs = [
-              latex-packages
-            ];
-
-            TEXMFHOME="./cache";
-            TEXMFVAR="./cache/var";
+          document = lib.latexmk {
+            inherit pkgs;
+            texlive = latex-packages;
+            shellEscape = true;
+            minted = true;
             SOURCE_DATE_EPOCH = toString self.lastModified;
-
-            buildPhase = ''
-              latexmk
-            '';
-
-            installPhase = ''
-              mkdir -p $out
-              mv *.pdf $out/${name}
-            '';
           };
         };
 
-        defaultPackage = self.packages.${system}.document;
+        defaultPackage = packages.document;
       }
     );
 }
