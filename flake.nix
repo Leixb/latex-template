@@ -9,6 +9,9 @@
         path = ./.;
         description = "LaTeX document with minted support";
       };
+
+      lib.latexmk = import ./build-document.nix;
+
       defaultTemplate = self.templates.document;
     } // flake-utils.lib.eachDefaultSystem (system:
       let
@@ -57,11 +60,9 @@
         devShell = pkgs.mkShell {
           buildInputs = [ latex-packages dev-packages ];
         };
-
-        lib.latexmk = import ./build-document.nix;
         
         packages = flake-utils.lib.flattenTree {
-          document = lib.latexmk {
+          document = import ./build-document.nix {
             inherit pkgs;
             texlive = latex-packages;
             shellEscape = true;
